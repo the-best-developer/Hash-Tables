@@ -116,15 +116,27 @@ class HashTable:
             return
 
         elif node.key == key:
+            old_node = node
+            
             self.storage[index] = None
             self.curr_capacity = self.curr_capacity - 1
+
+            while old_node.next != None:
+                self.insert(old_node.next.key, old_node.next.value)
+                old_node = old_node.next
+
             return
         
         while node.next != None:
             if node.next.key == key:
-                node.next = None
-                self.curr_capacity = self.curr_capacity - 1
-                return
+                if node.next.next != None:
+                    node.next = node.next.next
+                    self.curr_capacity = self.curr_capacity - 1
+                    return
+                else:
+                    node.next = None
+                    self.curr_capacity = self.curr_capacity - 1
+                    return
             node = node.next
 
 
