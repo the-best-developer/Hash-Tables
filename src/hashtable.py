@@ -60,8 +60,6 @@ class HashTable:
 
         Fill this in.
         '''
-
-
         
         self.resize()
 
@@ -119,11 +117,13 @@ class HashTable:
 
         elif node.key == key:
             self.storage[index] = None
+            self.curr_capacity = self.curr_capacity - 1
             return
         
         while node.next != None:
             if node.next.key == key:
                 node.next = None
+                self.curr_capacity = self.curr_capacity - 1
                 return
             node = node.next
 
@@ -193,6 +193,7 @@ class HashTable:
             while node.next != None:
                 self.insert(node.next.key, node.next.value)
                 node = node.next
+
         # print(self.storage)
 
 
